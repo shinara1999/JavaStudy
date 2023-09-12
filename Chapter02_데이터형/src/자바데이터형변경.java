@@ -1,9 +1,6 @@
 
 
 
-
-
-
 public class 자바데이터형변경 {
 
 	public static void main(String[] args) {
