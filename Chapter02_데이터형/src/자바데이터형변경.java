@@ -1,6 +1,7 @@
 
 public class 자바데이터형변경 {
 
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int _int=(int)100.0; // int => 소수점이하를 제거
@@ -23,6 +24,4 @@ public class 자바데이터형변경 {
 	}
 
 }
-
-
 
