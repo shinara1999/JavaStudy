@@ -12,6 +12,8 @@ public class Scanner_입력받기 {
 		int c=scan.nextInt();
 		
 		System.out.println(a*b+c);
+		
+		scan.close();
 	}
 
 }

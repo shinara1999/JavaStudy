@@ -60,7 +60,7 @@ public class 자바연산자문제 {
 		System.out.println(c-d);
 		System.out.println(c*d);
 		
-		
+		scan.close();
 		
 
 
