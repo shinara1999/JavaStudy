@@ -49,16 +49,18 @@ public class 배열_1 {
 		 * 		arr[0] => 일반 변수와 동일
 		 */
 		
-		// 배열이타 클래스인 경우 같은 주소를 가지고 있으면 같은 메모리 제어
+		// 배열이타 클래스인 경우 같은 주소를 가지고 있으면 같은 메모리 제어 => 얕은복사
 		// 메모리 주소가 다른 경우 따로 제어
 		int[] arr2=arr;
 		
+		System.out.println("arr="+arr);
+		System.out.println("arr2="+arr2);
 		arr[0]=100;
-		arr[1]=200; 
-		System.out.println();
+		arr[1]=200;
 		
-		
-		
+		System.out.println("arr2=>"+arr2[0]);
+		System.out.println("arr2=>"+arr2[1]);
+
 		// 깊은복사 => Call By Value
 		
 

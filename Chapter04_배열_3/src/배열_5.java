@@ -39,7 +39,6 @@
  */
 
 import java.util.*;
-import java.util.Arrays;
 public class 배열_5 {
 
 	public static void main(String[] args) {
