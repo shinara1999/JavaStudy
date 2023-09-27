@@ -155,23 +155,42 @@ public class 배열문제풀이 {
 //		System.out.println(Arrays.toString(arr));
 		
 		// 9, 10
-		char[] arr=new char[26];
-		char c='A';
-		for(int i=0;i<arr.length;i++)
-		{
-			arr[i]=c++;
-		}
-		for(char i:arr)
-		{
-			System.out.print(i);
-		}
+//		char[] arr=new char[26];
+//		char c='A';
+//		for(int i=0;i<arr.length;i++)
+//		{
+//			arr[i]=c++;
+//		}
+//		for(char i:arr)
+//		{
+//			System.out.print(i);
+//		}
+//		
+//		// 거꾸로출력
+//		System.out.println();
+//		for(int i=arr.length-1;i>=0;i--)
+//		{
+//			System.out.print(arr[i]);
+//		}
 		
-		// 거꾸로출력
-		System.out.println();
-		for(int i=arr.length-1;i>=0;i--)
-		{
-			System.out.print(arr[i]);
-		}
+		// 11
+//		int[] arr=new int[10];
+//		
+//		for(int i=0;i<arr.length;i++)
+//		{
+//			arr[i]=(int)(Math.random()*100)+1;
+//		}
+//		System.out.println(Arrays.toString(arr));
+//		
+//		for(int i:arr)
+//		{
+//			if(i%3==0)
+//			{
+//				System.out.print(i+" ");
+//			}
+//		}
+		
+		// 12
 
 	}
 
