@@ -1,12 +1,12 @@
 package com.sist.client3;
 
-//import java.awt.Color;
-//
-//import javax.swing.*;
+import java.awt.Color;
 
-public class BoardListPanel3 {
-//	public BoardListPanel3()
-//	{
-//		setBackground(Color.cyan);
-//	}
+import javax.swing.*;
+
+public class BoardListPanel3 extends JPanel{
+	public BoardListPanel3()
+	{
+		//setBackground(Color.cyan);
+	}
 }

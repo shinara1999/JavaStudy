@@ -3,6 +3,7 @@ package com.sist.client3;
 import java.awt.CardLayout;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class ControllPanel3 extends JPanel{
 	
@@ -13,13 +14,13 @@ public class ControllPanel3 extends JPanel{
 	public NewsPanel3 np=new NewsPanel3();
 	
 	public CardLayout card=new CardLayout();
-//	public ControllPanel3()
-//	{
-//		setLayout(card);
-//		add("home", hp);
-//		add("search", sp);
-//		add("chat", cp);
-//		add("board", blp);
-//		add("news", np);
-//	}
+	public ControllPanel3()
+	{
+		setLayout(card);
+		add("home", hp);
+		add("search", sp);
+		add("chat", cp);
+		add("board", blp);
+		add("news", np);
+	}
 }

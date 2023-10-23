@@ -25,10 +25,10 @@ public class ClientMainForm3 extends JFrame implements ActionListener{
 		mp.setBounds(10, 200, 200, 300);
 		add(mp);
 		
-		cp.setBounds(230, 15, 830, 710);
+		cp.setBounds(230, 15, 1100, 800);
 		add(cp);
 		
-		setSize(1100, 768);
+		setSize(1280, 960);
 		//setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
