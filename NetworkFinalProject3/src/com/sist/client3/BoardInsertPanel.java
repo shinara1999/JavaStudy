@@ -75,6 +75,10 @@ public class BoardInsertPanel extends JPanel implements ActionListener{
 //		p.setBounds(10, 725, 625, 35);
 //		add(p);
 		
+		b1.setBounds(875, 715, 65, 25);
+		b2.setBounds(875, 75, 65, 25);
+		add(b1); add(b2);
+		
 		
 		
 		b1.addActionListener(this);

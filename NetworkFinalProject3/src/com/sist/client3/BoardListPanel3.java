@@ -47,6 +47,8 @@ public class BoardListPanel3 extends JPanel implements ActionListener{
 		table.setShowVerticalLines(false);
 		table.setRowHeight(62); // height 늘리기
 		
+		table.getTableHeader().setPreferredSize(new Dimension(35, 35)); // 테이블 헤더 사이즈 변경
+		
 		table.getColumn("번호").setPreferredWidth(30);
 		table.getColumn("제목").setPreferredWidth(400);
 		table.getColumn("이름").setPreferredWidth(100);
