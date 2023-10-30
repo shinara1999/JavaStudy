@@ -22,7 +22,7 @@ public class ClientMainForm3 extends JFrame implements ActionListener{
 		logo.setIcon(new ImageIcon(ImageChange3.getImage(new ImageIcon("C:\\javaDev\\logo3.png"), 200, 200)));
 		add(logo);
 		
-		mp.setBounds(10, 200, 200, 300);
+		mp.setBounds(10, 200, 200, 500);
 		add(mp);
 		
 		cp.setBounds(230, 15, 1100, 800);
