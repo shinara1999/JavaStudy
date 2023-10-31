@@ -103,10 +103,104 @@ public class BoardManager {
 	}
 	
 	// 상세보기
+	public BoardVO boardDetailData(int no)
+	{
+		BoardVO vo=new BoardVO();
+		for(int i=0;i<bList.size();i++)
+		{
+			BoardVO bVO=bList.get(i);
+			if(bVO.getNo()==no)
+			{
+				bVO.setHit(bVO.getHit()+1); // 조회수 증가
+				vo=bVO;
+				fileSave(); // 파일과 ArrayList가 동일
+				break;
+				// 다음주부터 => 파일 / 오라클
+				// UPDATE board SET hit=hit+1 WHERE no=1;
+				// 오라클 (웹 핵심) => SQL
+				// SQL (CRUD => SELECT, INSERT, UPDATE, DELETE)
+			}
+		}
+		return vo;
+	}
 	
 	// 수정하기 ===
+	public BoardVO boardUpdateData(int no)
+	{
+		BoardVO vo=new BoardVO();
+		// SELECT * FROM board WHERE no=1
+		for(BoardVO bVo:bList)
+		{
+			if(bVo.getNo()==no)
+			{
+				vo=bVo;
+				break;
+			}
+
+		}
+		return vo;
+	}
+	
+	public String boardUpdate(BoardVO vo)
+	{
+		String result=""; // YES : 수정가능 , NO : 수정불가
+		for(int i=0;i<bList.size();i++)
+		{
+			// remove (index) , set(index)
+			BoardVO pVO=bList.get(i);
+			// 서버에 저장
+			if(pVO.getNo()==vo.getNo())
+			{
+				if(pVO.getPwd().equals(vo.getPwd()))
+				{
+					// 수정 (비밀번호 일치)
+					result="YES";
+					//bList.set(i, vo); // 메모리 => 수정
+					pVO.setContent(vo.getContent());
+					pVO.setName(vo.getName());
+					pVO.setSubject(vo.getSubject());
+					
+					fileSave(); // 파일 => 수정된 내용을 파일에 저장
+					// 메모리 저장 == 파일 저장
+				}
+				else
+				{
+					// 비밀번호 불일치
+					result="NO";
+				}
+				break;
+			}
+		}
+		return result;
+	}
 	
 	// 삭제하기 === 동일 코딩 ==> 파일에 저장
+	// ArrayList 제어 / 파일 제어
+	public String boardDelete(int no, String pwd)
+	{
+		String result=""; // NO , YES
+		for(int i=0;i<bList.size();i++)
+		{
+			BoardVO vo=bList.get(i);
+			if(vo.getNo()==no)
+			{
+				if(vo.getPwd().equals(pwd))
+				{
+					// 삭제 대상 => 비밀번호 일치
+					result="YES";
+					bList.remove(i);
+					fileSave();
+				}
+				else
+				{
+					// 비밀번호 불일치
+					result="NO";
+				}
+				break;
+			}
+		}
+		return result;
+	}
 	
 	// 검색하기
 	

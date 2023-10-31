@@ -63,11 +63,11 @@ public class BoardInsertPanel extends JPanel implements ActionListener{
 		add(la2); add(tf2);
 		
 		la3.setBounds(10, 155, 70, 30);
-		js.setBounds(85, 155, 850, 550);
+		js.setBounds(85, 155, 850, 450);
 		add(la3); add(js);
 		
-		la4.setBounds(10, 715, 70, 30);
-		tf3.setBounds(85, 715, 150, 30);
+		la4.setBounds(10, 615, 70, 30);
+		tf3.setBounds(85, 615, 150, 30);
 		add(la4); add(tf3);
 		
 //		JPanel p=new JPanel();
@@ -75,7 +75,7 @@ public class BoardInsertPanel extends JPanel implements ActionListener{
 //		p.setBounds(10, 725, 625, 35);
 //		add(p);
 		
-		b1.setBounds(875, 715, 65, 25);
+		b1.setBounds(875, 615, 65, 25);
 		b2.setBounds(875, 75, 65, 25);
 		add(b1); add(b2);
 		

@@ -4,16 +4,21 @@ import javax.swing.*;
 
 // import com.sist.client.Login3;
 import com.sist.common3.ImageChange3;
+import com.sist.manager.BookManager;
+import com.sist.vo.BookCategoryVO;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ClientMainForm3 extends JFrame implements ActionListener{
 	MenuPanel3 mp=new MenuPanel3();
 	ControllPanel3 cp=new ControllPanel3();
 	JLabel logo=new JLabel();
 	Login3 login=new Login3();
+	BookManager fm=new BookManager();
+	
 	public ClientMainForm3()
 	{
 		setLayout(null);
@@ -25,10 +30,10 @@ public class ClientMainForm3 extends JFrame implements ActionListener{
 		mp.setBounds(10, 200, 200, 500);
 		add(mp);
 		
-		cp.setBounds(230, 15, 1100, 800);
+		cp.setBounds(230, 15, 1030, 750);
 		add(cp);
 		
-		setSize(1280, 960);
+		setSize(1280, 800);
 		//setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -41,6 +46,10 @@ public class ClientMainForm3 extends JFrame implements ActionListener{
 		mp.b6.addActionListener(this);
 		
 		login.b1.addActionListener(this);
+		
+		ArrayList<BookCategoryVO> list=fm.bookCategoryData(1);
+		// cp.hp.cardInit(list);
+		cp.hp.cardPrint(list);
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

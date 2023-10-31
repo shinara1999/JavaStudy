@@ -12,7 +12,7 @@ import com.sist.manager.*;
 import java.util.*;
 import java.text.*;
 
-public class BoardListPanel3 extends JPanel implements ActionListener{
+public class BoardListPanel3 extends JPanel implements ActionListener, MouseListener{
 	
 	JLabel la,pageLa;
 	JButton b1,b2,b3,b4;
@@ -45,7 +45,7 @@ public class BoardListPanel3 extends JPanel implements ActionListener{
 		table=new JTable(model);
 		table.getTableHeader().setReorderingAllowed(false);  // 각 컬럼 이동 방지
 		table.setShowVerticalLines(false);
-		table.setRowHeight(62); // height 늘리기
+		table.setRowHeight(51); // height 늘리기
 		
 		// table.getTableHeader().setPreferredSize(new Dimension(35, 35)); // 테이블 헤더 사이즈 변경
 		
@@ -74,7 +74,7 @@ public class BoardListPanel3 extends JPanel implements ActionListener{
 		b1.setBounds(10, 75, 100, 30);
 		add(b1);
 		
-		js.setBounds(10, 115, 990, 640);
+		js.setBounds(10, 115, 990, 530);
 		add(js);
 		
 		JPanel p=new JPanel();
@@ -82,13 +82,14 @@ public class BoardListPanel3 extends JPanel implements ActionListener{
 		p.add(pageLa);
 		p.add(b4);
 		
-		p.setBounds(130, 770, 710, 35);
+		p.setBounds(130, 660, 710, 35);
 		add(p);
 		
 		// 이벤트
 		b1.addActionListener(this);
 		b3.addActionListener(this); // 이전
 		b4.addActionListener(this); // 다음
+		table.addMouseListener(this);
 		boardList();
 				
 	}
@@ -142,6 +143,69 @@ public class BoardListPanel3 extends JPanel implements ActionListener{
 				boardList();
 			}
 		}
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		// 더블클릭시에 상세보기 넘어가기
+		if(e.getSource()==table)
+		{
+			if(e.getClickCount()==2) // 더블클릭
+			{
+				// 게시물 번호 가지고 오기
+				int row=table.getSelectedRow();
+				String no=model.getValueAt(row, 0).toString();
+				//JOptionPane.showMessageDialog(this, no);
+				// => 윈도우, 웹 => 클라이언트 (전송) : 서버 (응답)
+				// => 			  --------------  ----------
+				//					   문자열			해당 데이터형으로 변경
+				//								 	Wrapper
+				/*
+				 		오라클 => 숫자 (NUMBER) => int, long, double
+				 				문자열 (VARCHAR2) => String
+				 				날짜 (DATE) => date
+				 */
+				BoardVO vo=bm.boardDetailData(Integer.parseInt(no));
+				cp.bdp.noLa.setText(no);
+				cp.bdp.nameLa.setText(vo.getName());
+				cp.bdp.subLa.setText(vo.getSubject());
+				// 화면 출력시에 데이터형이 없다. (문자열 출력)
+				/*
+				 		String => String.valueOf() => 기본형
+				 */
+				cp.bdp.hitLa.setText(String.valueOf(vo.getHit()));
+				cp.bdp.pane.setText(vo.getContent());
+				cp.bdp.dateLa.setText(new SimpleDateFormat("yyyy-MM-dd").format(vo.getRegdate()));
+				
+				cp.card.show(cp, "detail");
+				
+			}
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 

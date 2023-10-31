@@ -34,20 +34,8 @@ public class MainClass {
 				System.out.println(title.text());
 				
 				// 작가
-				Element author=doc2.selectFirst("span.gd_pubArea span.gd_auth");
-				System.out.println(author.text());
-				
-				// 출판사
-				Element publ=doc2.selectFirst("span.gd_pub");
-				System.out.println(publ.text());
-				
-				// 평점
-				Element score=doc2.selectFirst("span.gd_rating");
-				System.out.println(score.text());
-				
-				// 가격
-				Element price=doc2.selectFirst("tr.accentRow");
-				System.out.println(price.text());
+				Element author=doc2.selectFirst("span.gd_pubArea span.gd_auth a");
+				System.out.println(author.attr("href"));
 				
 				// 이미지
 				Element poster=doc2.selectFirst("div.gd_tagGArea img");
@@ -62,14 +50,28 @@ public class MainClass {
 				}
 				System.out.println(image);
 				
+				// 출판사
+				Element publ=doc2.selectFirst("span.gd_pub");
+				System.out.println(publ.text());
+				
+				// 평점
+				Element score=doc2.selectFirst("span.gd_ratingArea em.yes_b");
+				System.out.println(score.text());
+				
+				// 가격
+				Element price=doc2.selectFirst("tr.accentRow");
+				System.out.println(price.text());
+				
+				
+				
 				
 				String msg=(k)+"|"
 						+title.text()+"|"
 						+author.text()+"|"
-						+publ.text()+"|"
+						+image+"|"
 						+score.text()+"|"
 						+price.text()+"|"
-						+image+"\r\n";
+						+publ.text()+"\r\n";
 				
 				FileWriter fw=new FileWriter("c:\\java_data\\book.txt", true);
 				fw.write(msg);
