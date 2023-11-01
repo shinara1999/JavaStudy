@@ -17,7 +17,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class BoardInsertPanel extends JPanel implements ActionListener{
+public class BoardInsertPanel3 extends JPanel implements ActionListener{
 	
 	ControllPanel3 cp;
 	JLabel la;
@@ -26,7 +26,7 @@ public class BoardInsertPanel extends JPanel implements ActionListener{
 	JTextArea ta;
 	JButton b1, b2;
 	
-	public BoardInsertPanel(ControllPanel3 cp)
+	public BoardInsertPanel3(ControllPanel3 cp)
 	{
 		this.cp=cp;
 		// setBackground(Color.darkGray);

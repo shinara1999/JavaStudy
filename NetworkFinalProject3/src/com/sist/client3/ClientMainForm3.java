@@ -47,7 +47,7 @@ public class ClientMainForm3 extends JFrame implements ActionListener{
 		
 		login.b1.addActionListener(this);
 		
-		ArrayList<BookCategoryVO> list=fm.bookCategoryData(1);
+		ArrayList<BookCategoryVO> list=fm.BookCategoryData(1);
 		// cp.hp.cardInit(list);
 		cp.hp.cardPrint(list);
 	}

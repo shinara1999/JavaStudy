@@ -1,45 +1,37 @@
-package com.sist.client3;
-
-import java.awt.Font;
+package com.sist.client;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
-
 import com.sist.vo.*;
 import com.sist.manager.*;
-
 public class BoardDetailPanel extends JPanel implements ActionListener{
-    ControllPanel3 cp;// 화면 변경 
+    ControllPanel cp;// 화면 변경 
     JLabel titleLa;
     JLabel la1,la2,la3,la4,la5;
     JLabel noLa,nameLa,dateLa,hitLa,subLa;
     JTextPane pane;
     JButton b1,b2,b3;
     BoardManager bm=new BoardManager();
-    public BoardDetailPanel(ControllPanel3 cp)
+    public BoardDetailPanel(ControllPanel cp)
     {
-   	 	this.cp=cp;
-   	 	 titleLa=new JLabel("내용보기");
+   	     this.cp=cp;
+   	     titleLa=new JLabel("내용보기");
+    	 titleLa.setFont(new Font("맑은 고딕",Font.BOLD,45));
     	 titleLa.setHorizontalAlignment(JLabel.CENTER);
-    	 titleLa.setFont(new Font("맑은 고딕", Font.BOLD, 35));
     	 
     	 la1=new JLabel("번호");
     	 la1.setHorizontalAlignment(JLabel.CENTER);
     	 
     	 la2=new JLabel("작성일");
-    	 la2.setHorizontalAlignment(JLabel.CENTER);
+   	     la2.setHorizontalAlignment(JLabel.CENTER);
    	 
-    	 la3=new JLabel("이름");
+   	     la3=new JLabel("이름");
     	 la3.setHorizontalAlignment(JLabel.CENTER);
     	 
     	 la4=new JLabel("조회수");
-    	 la4.setHorizontalAlignment(JLabel.CENTER);
+   	     la4.setHorizontalAlignment(JLabel.CENTER);
    	 
-    	 la5=new JLabel("제목");
+   	     la5=new JLabel("제목");
     	 la5.setHorizontalAlignment(JLabel.CENTER);
     	 
     	 noLa=new JLabel();
@@ -57,32 +49,32 @@ public class BoardDetailPanel extends JPanel implements ActionListener{
     	 
     	 //배치 
     	 setLayout(null);
-    	 titleLa.setBounds(100, 15, 700, 50);
+    	 titleLa.setBounds(10, 15, 720, 60);
   	     add(titleLa);
   	    
   	     la1.setBounds(10, 85, 60, 30);
   	     noLa.setBounds(75, 85, 300, 30);
-  	     la2.setBounds(550, 85, 60, 30);
-	     dateLa.setBounds(620, 85, 300, 30);
+  	     la2.setBounds(385, 85, 60, 30);
+	     dateLa.setBounds(450, 85, 300, 30);
   	     add(la1);add(noLa);add(la2);add(dateLa);
 	     
 	     la3.setBounds(10, 120, 60, 30);
   	     nameLa.setBounds(75, 120, 300, 30);
-  	     la4.setBounds(550, 120, 60, 30);
-	     hitLa.setBounds(620, 120, 300, 30);
+  	     la4.setBounds(385, 120, 60, 30);
+	     hitLa.setBounds(450, 120, 300, 30);
 	     
 	     add(la3);add(nameLa);add(la4);add(hitLa);
 	     la5.setBounds(10, 155, 60, 30);
   	     subLa.setBounds(75, 155, 615, 30);
   	     add(la5);add(subLa);
-  	     js.setBounds(25, 190, 950, 450);
+  	     js.setBounds(10, 190, 675, 150);
   	     add(js);
   	     
   	     JPanel p=new JPanel();
   	     p.add(b1);
   	     p.add(b2);
   	     p.add(b3);
-  	     p.setBounds(150, 650, 675, 35);
+  	     p.setBounds(10, 350, 675, 35);
   	     add(p);
   	     
   	     b3.addActionListener(this);
@@ -92,11 +84,11 @@ public class BoardDetailPanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource()==b3) // 목록이동
+		if(e.getSource()==b3) // 목록 이동 
 		{
-			cp.blp.boardList(); // 파일을 다시 읽고 시작한다.
-			// SQL문장을 다시 실행하게 만든다.
-			cp.card.show(cp, "board"); // card.show : 화면이동
+			cp.blp.boardList();// 파일을 다시 읽고 시작한다 
+			// SQL문장을 다시 실행하게 만든다
+			cp.card.show(cp, "board");
 		}
 		else if(e.getSource()==b2)
 		{
@@ -109,26 +101,14 @@ public class BoardDetailPanel extends JPanel implements ActionListener{
 		else if(e.getSource()==b1)
 		{
 			String no=noLa.getText();
-			BoardVO vo=bm.boardUpdateData(Integer.parseInt(no));
-					
+			BoardVO vo=
+					bm.boardUpdateData(Integer.parseInt(no));
 			cp.bup.tf1.setText(vo.getName());
 			cp.bup.tf2.setText(vo.getSubject());
 			cp.bup.ta.setText(vo.getContent());
 			cp.bup.la5.setText(no);
-			cp.bup.pf.setText("");
 			cp.card.show(cp, "update");
 		}
-	}	
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,15 +1,15 @@
 package com.sist.manager;
 import java.util.*;
 
-import com.sist.vo.BookCategoryVO;
-import com.sist.vo.BookHouseVO;
+import com.sist.vo.FoodCategoryVO;
+import com.sist.vo.FoodHouseVO;
 
 import java.io.*;
-public class BookManager {
-   private static ArrayList<BookCategoryVO>
-        cList=new ArrayList<BookCategoryVO>();
-   private static ArrayList<BookHouseVO>
-        fList=new ArrayList<BookHouseVO>();
+public class FoodManager {
+   private static ArrayList<FoodCategoryVO>
+        cList=new ArrayList<FoodCategoryVO>();
+   private static ArrayList<FoodHouseVO>
+        fList=new ArrayList<FoodHouseVO>();
    /*
     *         Throwable 
     *         ---------
@@ -32,61 +32,62 @@ public class BookManager {
     */
    // 초기화 블록 => static 변수가 있는 경우에 주로 사용 
    // 자동 수행이 된다 , 상속은 안된다 
+   
    static
    {
-//	   FileReader fr=null;
-//	   ObjectOutputStream ois=null;
-//	   FileOutputStream fis=null;
-//	   try
-//	   {
-//		   // 정상 수행 문장 
-//		   fr=new FileReader("c:\\java_data\\book.txt");
-//		   String data="";
-//		   int i=0;
-//		   while((i=fr.read())!=-1)//-1 (EOF)
-//		   {
-//			   data+=(char)i;
-//		   }
-//		   fr.close();
-//		   
-//		   String[] cates=data.split("\n");
-//		   for(String s:cates)
-//		   {
-//			   StringTokenizer st=new StringTokenizer(s,"|");
-//			   
-//			   BookCategoryVO vo=new BookCategoryVO();
-//			   vo.setCno(Integer.parseInt(st.nextToken().replace("\ufeff", "")));
-//			   vo.setTitle(st.nextToken());
-//			   vo.setSubject(st.nextToken());
-//			   vo.setPoster(st.nextToken());
-//			   cList.add(vo);
-//		   }
-//		   
-//		   fis=new FileOutputStream("c:\\java_data\\bc.txt");
-//		   ois=new ObjectOutputStream(fis);
-//		   ois.writeObject(cList);
-//		   
-//	   }catch(Exception ex)
-//	   {
-//		   // 에러 확인후 복구
-//		   ex.printStackTrace();
-//	   }
-//	   finally
-//	   {
-//		   // 무조건 수행하는 문장 => 파일 닫기 , 서버 닫기
-//		   try
-//		   {
-//			   fis.close();
-//			   ois.close();
-//		   }catch(Exception ex) {}
-//	   }
+	   /*FileReader fr=null;
+	   ObjectOutputStream ois=null;
+	   FileOutputStream fis=null;
+	   try
+	   {
+		   // 정상 수행 문장 
+		   fr=new FileReader("c:\\java_data\\food_category.txt");
+		   String data="";
+		   int i=0;
+		   while((i=fr.read())!=-1)//-1 (EOF)
+		   {
+			   data+=(char)i;
+		   }
+		   fr.close();
+		   
+		   String[] cates=data.split("\n");
+		   for(String s:cates)
+		   {
+			   StringTokenizer st=new StringTokenizer(s,"|");
+			   
+			   FoodCategoryVO vo=new FoodCategoryVO();
+			   vo.setCno(Integer.parseInt(st.nextToken().replace("\ufeff", "")));
+			   vo.setTitle(st.nextToken());
+			   vo.setSubject(st.nextToken());
+			   vo.setPoster(st.nextToken());
+			   cList.add(vo);
+		   }
+		   
+		   fis=new FileOutputStream("c:\\java_data\\fc.txt");
+		   ois=new ObjectOutputStream(fis);
+		   ois.writeObject(cList);
+		   
+	   }catch(Exception ex)
+	   {
+		   // 에러 확인후 복구
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   // 무조건 수행하는 문장 => 파일 닫기 , 서버 닫기
+		   try
+		   {
+			   fis.close();
+			   ois.close();
+		   }catch(Exception ex) {}
+	   }*/
 	   FileInputStream fis=null;
 	   ObjectInputStream ois=null;
 	   try
 	   {
-		   fis=new FileInputStream("c:\\java_data\\bc.txt");
+		   fis=new FileInputStream("c:\\java_data\\fc.txt");
 		   ois=new ObjectInputStream(fis);
-		   cList=(ArrayList<BookCategoryVO>)ois.readObject();
+		   cList=(ArrayList<FoodCategoryVO>)ois.readObject();
 	   }catch(Exception ex)
 	   {
 		   ex.printStackTrace();
@@ -126,7 +127,7 @@ public class BookManager {
 	   try
 	   {
 		   
-		   fr=new FileReader("c:\\java_data\\book.txt");
+		   fr=new FileReader("c:\\java_data\\food_house.txt");
 		   int i=0;
 		   while((i=fr.read())!=-1)
 		   {
@@ -142,19 +143,22 @@ public class BookManager {
 			   StringTokenizer st=
 					   new StringTokenizer(s,"|");
 			   
-			   BookHouseVO vo=new BookHouseVO();
+			   FoodHouseVO vo=new FoodHouseVO();
 			   vo.setFno(Integer.parseInt(st.nextToken().replace("\ufeff", "")));
+			   vo.setCno(Integer.parseInt(st.nextToken()));
 			   vo.setName(st.nextToken());
-			   vo.setAuthor(st.nextToken());
-			   vo.setPoster(st.nextToken());
-			   vo.setPubl(st.nextToken());
 			   vo.setScore(Double.parseDouble(st.nextToken()));
-			   
+			   vo.setAddress(st.nextToken());
+			   vo.setPhone(st.nextToken());
+			   vo.setType(st.nextToken());
+			   vo.setPrice(st.nextToken());
+			   vo.setParking(st.nextToken());
+			   vo.setTime(st.nextToken());
+			   vo.setMenu(st.nextToken());
+			   vo.setPoster(st.nextToken());
 			   fList.add(vo);
 			  }catch(Exception ex) {}
 		   }
-		   
-		   
 		   //System.out.println(sb.toString());
 		   FileOutputStream fos=
 				   new FileOutputStream("c:\\java_data\\fh.txt");
@@ -178,46 +182,42 @@ public class BookManager {
 	   }
 	   //FileInputStream fis=null;
 	   //ObjectInputStream ois=null;
-//	   try
-//	   {
-//		   fis=new FileInputStream("c:\\java_data\\fh.txt");
-//		   ois=new ObjectInputStream(fis);
-//		   fList=(ArrayList<BookHouseVO>)ois.readObject();
-//	   }catch(Exception ex)
-//	   {
-//		   ex.printStackTrace();
-//	   }
-//	   finally
-//	   {
-//		   try
-//		   {
-//			   fis.close();
-//			   ois.close();
-//		   }catch(Exception ex) {}
-//	   }
-//   }
+	   try
+	   {
+		   fis=new FileInputStream("c:\\java_data\\fh.txt");
+		   ois=new ObjectInputStream(fis);
+		   fList=(ArrayList<FoodHouseVO>)ois.readObject();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   try
+		   {
+			   fis.close();
+			   ois.close();
+		   }catch(Exception ex) {}
+	   }
    }
    public static void main(String[] args) {
-	   BookManager fm=new BookManager();
-	   System.out.println("저장");
-	   for(BookHouseVO vo:fList)
+	   FoodManager fm=new FoodManager();
+	   for(FoodHouseVO vo:fList)
 	   {
 		   System.out.println("번호:"+vo.getFno());
-		   System.out.println("제목:"+vo.getName());
-		   System.out.println("작가:"+vo.getAuthor());
-		   System.out.println("출판사:"+vo.getPubl());
-		   System.out.println("점수:"+vo.getScore());
-//		   System.out.println("주소:"+vo.getAddress());
-//		   System.out.println("전화:"+vo.getPhone());
-//		   System.out.println("메뉴:"+vo.getMenu());
-//		   System.out.println("==========================");
+		   System.out.println("참조번호:"+vo.getCno());
+		   System.out.println("업체명:"+vo.getName());
+		   System.out.println("주소:"+vo.getAddress());
+		   System.out.println("전화:"+vo.getPhone());
+		   System.out.println("메뉴:"+vo.getMenu());
+		   System.out.println("==========================");
 	   }
 	   
    }
-   public ArrayList<BookCategoryVO> BookCategoryData(int no)
+   public ArrayList<FoodCategoryVO> foodCategoryData(int no)
    {
-	   ArrayList<BookCategoryVO> list=
-			   new ArrayList<BookCategoryVO>();
+	   ArrayList<FoodCategoryVO> list=
+			   new ArrayList<FoodCategoryVO>();
 	   int start=0;
 	   int end=0;
 	   if(no==1)
@@ -241,11 +241,10 @@ public class BookManager {
 	   }
 	   return list;
    }
-   
-   public BookCategoryVO categoryInfoData(String title)
+   public FoodCategoryVO categoryInfoData(String title)
    {
-	   BookCategoryVO vo=new BookCategoryVO();
-	   for(BookCategoryVO fvo:cList)
+	   FoodCategoryVO vo=new FoodCategoryVO();
+	   for(FoodCategoryVO fvo:cList)
 	   {
 		   if(fvo.getTitle().equals(title))
 		   {
@@ -255,23 +254,23 @@ public class BookManager {
 	   }
 	   return vo;
    }
-//   public ArrayList<BookHouseVO> BookHouseListData(int cno)
-//   {
-//	   ArrayList<BookHouseVO> list=
-//			   new ArrayList<BookHouseVO>();
-//	   for(BookHouseVO fvo:fList)
-//	   {
-//		   if(fvo.getCno()==cno)
-//		   {
-//			   list.add(fvo);
-//		   }
-//	   }
-//	   return list;
-//   }
-   public BookHouseVO BookInfoData(int fno)
+   public ArrayList<FoodHouseVO> foodHouseListData(int cno)
    {
-	   BookHouseVO vo=new BookHouseVO();
-	   for(BookHouseVO fvo:fList)
+	   ArrayList<FoodHouseVO> list=
+			   new ArrayList<FoodHouseVO>();
+	   for(FoodHouseVO fvo:fList)
+	   {
+		   if(fvo.getCno()==cno)
+		   {
+			   list.add(fvo);
+		   }
+	   }
+	   return list;
+   }
+   public FoodHouseVO foodInfoData(int fno)
+   {
+	   FoodHouseVO vo=new FoodHouseVO();
+	   for(FoodHouseVO fvo:fList)
 	   {
 		   if(fvo.getFno()==fno)
 		   {
@@ -281,11 +280,11 @@ public class BookManager {
 	   }
 	   return vo;
    }
-   public ArrayList<BookHouseVO> BookFindData(String title)
+   public ArrayList<FoodHouseVO> foodFindData(String title)
    {
-	   ArrayList<BookHouseVO> list=
-			   new ArrayList<BookHouseVO>();
-	   for(BookHouseVO fvo:fList)
+	   ArrayList<FoodHouseVO> list=
+			   new ArrayList<FoodHouseVO>();
+	   for(FoodHouseVO fvo:fList)
 	   {
 		   if(fvo.getName().contains(title))
 		   {

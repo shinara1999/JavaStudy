@@ -1,21 +1,15 @@
 package com.sist.vo;
 
-public class BookHouseVO {
+import java.io.Serializable;
+
+public class BookHouseVO implements Serializable{ // 직렬화 저장
 	private int fno;
-	private int cno;
 	private String name;
 	private String author;
 	private String poster;
 	private String publ;
 	private double score;
-	private String price;
 	
-	public int getCno() {
-		return cno;
-	}
-	public void setCno(int cno) {
-		this.cno = cno;
-	}
 	public int getFno() {
 		return fno;
 	}
@@ -52,11 +46,7 @@ public class BookHouseVO {
 	public void setScore(double score) {
 		this.score = score;
 	}
-	public String getPrice() {
-		return price;
-	}
-	public void setPrice(String price) {
-		this.price = price;
-	}
+
 	
 }
+

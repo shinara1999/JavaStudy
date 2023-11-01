@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import com.sist.manager.BoardManager;
 import com.sist.vo.BoardVO;
 
-public class BoardUpdatePanel extends JPanel implements ActionListener{
+public class BoardUpdatePanel3 extends JPanel implements ActionListener{
 	ControllPanel3 cp;
     JLabel titleLa;
     JLabel la1,la2,la3,la4,la5;
@@ -25,7 +25,7 @@ public class BoardUpdatePanel extends JPanel implements ActionListener{
     JTextArea ta;
     JButton b1,b2;
     BoardManager bm=new BoardManager();
-    public BoardUpdatePanel(ControllPanel3 cp)
+    public BoardUpdatePanel3(ControllPanel3 cp)
     {
    	     this.cp=cp;
    	     titleLa=new JLabel("수정하기");
