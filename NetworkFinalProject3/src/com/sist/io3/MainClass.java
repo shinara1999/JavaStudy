@@ -59,7 +59,7 @@ public class MainClass {
 								+image + "|"
 								+publ.text()+"|"
 								+score.text()+"|"
-								+price.text() + "\r\n";
+								+price.text() +"|"+ "\r\n";
 						msg=msg.substring(0,msg.lastIndexOf("|"));
 						msg+="\r\n";
 				

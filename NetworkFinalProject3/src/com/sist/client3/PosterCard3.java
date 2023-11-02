@@ -13,8 +13,8 @@ public class PosterCard3 extends JPanel{
 	public PosterCard3(BookHouseVO vo)
 	{
 		setLayout(null);
-		poLa.setBounds(30, 5, 280, 120);
-		tLa.setBounds(30, 130, 280, 30);
+		poLa.setBounds(30, 5, 200, 180);
+		tLa.setBounds(30, 190, 200, 30);
 		
 		add(poLa);
 		add(tLa);
@@ -25,12 +25,12 @@ public class PosterCard3 extends JPanel{
 			{
 				System.out.println(vo.getPoster());
 				URL url=new URL(vo.getPoster().replaceAll("[가-힣]", ""));
-				Image image=ImageChange3.getImage(new ImageIcon(url), 280, 150);
+				Image image=ImageChange3.getImage(new ImageIcon(url), 150, 180);
 				poLa.setIcon(new ImageIcon(image));	
 			}
 			else
 			{
-				Image image=ImageChange3.getImage(new ImageIcon("c:\\java_data\\noimage.jpg"), 280, 150);
+				Image image=ImageChange3.getImage(new ImageIcon("c:\\java_data\\noimage.jpg"), 150, 180);
 				poLa.setIcon(new ImageIcon(image));
 			}
 			tLa.setText(vo.getName());

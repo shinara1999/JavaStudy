@@ -1,7 +1,7 @@
 package com.sist.manager;
 import java.util.*;
 
-
+import com.sist.vo.BoardVO;
 import com.sist.vo.BookHouseVO;
 
 import java.io.*;
@@ -61,6 +61,7 @@ public class BookManager {
 //			   vo.setPoster(st.nextToken());
 //			   vo.setPubl(st.nextToken());
 //			   vo.setScore(Double.parseDouble(st.nextToken()));
+//			   vo.setPrice(st.nextToken());
 //			   fList.add(vo);
 //		   }
 //		   
@@ -124,15 +125,16 @@ public class BookManager {
    }
    public static void main(String[] args) {
 	   BookManager fm=new BookManager();
-	   System.out.println("저장");
-	   for(BookHouseVO vo:fList)
-	   {
-		   System.out.println("번호:"+vo.getFno());
-		   System.out.println("제목:"+vo.getName());
-		   System.out.println("작가:"+vo.getAuthor());
-		   System.out.println("출판사:"+vo.getPubl());
-		   System.out.println("평점:"+vo.getScore());
-	   }
+//	   System.out.println("저장");
+//	   for(BookHouseVO vo:fList)
+//	   {
+//		   System.out.println("번호:"+vo.getFno());
+//		   System.out.println("제목:"+vo.getName());
+//		   System.out.println("작가:"+vo.getAuthor());
+//		   System.out.println("출판사:"+vo.getPubl());
+//		   System.out.println("평점:"+vo.getScore());
+//		   System.out.println("가격:"+vo.getPrice());
+//	   }
 	   
    }
    public ArrayList<BookHouseVO> BookHouseData(int no)
@@ -216,4 +218,36 @@ public class BookManager {
 	   }
 	   return list;
    }
+   public ArrayList<BookHouseVO> bookListData(int page)
+	{
+		ArrayList<BookHouseVO> list=new ArrayList<BookHouseVO>();
+		
+		int j=0;
+		int rowSize=12; // 화면에 출력하는 갯수
+		int pagecnt=(page*rowSize)-rowSize;
+		/*
+		 		1page => 0~11
+		 		2page => 12~23
+		 		3page => 24~35...
+		 		
+		 */
+		// 페이지 나누기 => 오라클은 인라인뷰로 자동으로 자를 수 있다.
+		for(int i=0;i<fList.size();i++)
+		{
+			if(j<12 && i>=pagecnt)
+			{
+				BookHouseVO vo=fList.get(i);
+				System.out.println(vo.getName());
+				list.add(vo);
+				j++; // 10개씩만 저장
+			}
+		}
+		return list;
+	}
+   public int bookTotalPage()
+	{
+		return (int)(Math.ceil(fList.size()/12.0)); ///////////
+		
+		// ceil => 올림함수 => 소수점이 0이 아닌 경우에 올라간다.
+	}
 }

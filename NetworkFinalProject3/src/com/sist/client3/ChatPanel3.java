@@ -13,9 +13,10 @@ public class ChatPanel3 extends JPanel{
 
 	JTable table1, table2;
 	DefaultTableModel model1, model2;
-	JTextPane pane;
+	JTextArea pane;
 	JTextField tf;
 	JButton b1, b2, b3, b4, b5, b6;
+	JScrollBar bar;
 	
 	public ChatPanel3()
 	{
@@ -43,12 +44,14 @@ public class ChatPanel3 extends JPanel{
 		js2.setBounds(10, 425, 500, 300);
 		add(js2);
 		
-		pane=new JTextPane();
+		pane=new JTextArea();
 		JScrollPane js3=new JScrollPane(pane);
 		pane.setEditable(false);
 		
 		js3.setBounds(520, 15, 490, 360);
 		add(js3);
+		
+		bar=js3.getVerticalScrollBar();
 		
 		tf=new JTextField();
 		tf.setBounds(520, 380, 490, 35);

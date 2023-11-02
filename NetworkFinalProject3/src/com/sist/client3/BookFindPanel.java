@@ -67,7 +67,7 @@ implements ActionListener{
     		// Class.forName("") 
     	 };
     	 table=new JTable(model);
-    	 table.setRowHeight(60);
+    	 table.setRowHeight(250);
     	 JScrollPane js=new JScrollPane(table);
     	 
     	 // 배치 
@@ -99,7 +99,7 @@ implements ActionListener{
     		 {
     			 URL url=new URL(vo.getPoster());
     			 Image image=ImageChange3.getImage(
-    					 new ImageIcon(url), 90, 90);
+    					 new ImageIcon(url), 120, 180);
     			 Object[] obj={
     				new ImageIcon(image),vo.getName(), vo.getAuthor()
     			 };

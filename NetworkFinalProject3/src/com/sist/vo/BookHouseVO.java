@@ -9,7 +9,14 @@ public class BookHouseVO implements Serializable{ // 직렬화 저장
 	private String poster;
 	private String publ;
 	private double score;
+	private String price;
 	
+	public String getPrice() {
+		return price;
+	}
+	public void setPrice(String price) {
+		this.price = price;
+	}
 	public int getFno() {
 		return fno;
 	}
