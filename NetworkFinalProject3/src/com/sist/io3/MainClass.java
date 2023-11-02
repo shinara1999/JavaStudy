@@ -24,6 +24,7 @@ public class MainClass {
 				{
 					try
 					{
+						//이미지
 						String image=poster.get(j).attr("data-original");
 						String subLink="https://www.yes24.com/"+link.get(j).attr("href");
 						System.out.println(subLink);
@@ -50,7 +51,7 @@ public class MainClass {
 						Element price=doc2.selectFirst("tr.accentRow");
 						System.out.println(price.text());
 					
-						//이미지
+						
 						
 						String msg=k+"|"
 								+title.text()+"|"

@@ -8,7 +8,7 @@ import java.awt.*;
 public class ControllPanel3 extends JPanel{
 	
 	public HomePanel3 hp;
-	public SearchPanel3 sp=new SearchPanel3();
+	//public SearchPanel3 sp=new SearchPanel3();
 	public ChatPanel3 cp=new ChatPanel3();
 	public BoardListPanel3 blp;
 	public NewsPanel3 np=new NewsPanel3();

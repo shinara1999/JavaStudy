@@ -11,16 +11,21 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 import com.sist.manager.BookManager;
-import com.sist.vo.BookCategoryVO;
 import com.sist.vo.BookHouseVO;
-public class HomePanel3 extends JPanel implements MouseListener{
+
+public class HomePanel3 extends JPanel implements ActionListener, MouseListener{
    JButton b1,b2,b3;
    PosterCard3[] pcs=new PosterCard3[12];
    BookManager fm=new BookManager();
    JPanel pan=new JPanel();
+   JTable table;
+   DefaultTableModel model;
    ControllPanel3 cp;
+  
+   
    public HomePanel3(ControllPanel3 cp)
    {
 	   this.cp=cp;
@@ -46,10 +51,10 @@ public class HomePanel3 extends JPanel implements MouseListener{
 //	   b3.addActionListener(this);
 	   
    }
-   public void cardPrint(ArrayList<BookCategoryVO> list)
+   public void cardPrint(ArrayList<BookHouseVO> list)
    {
 	   int i=0;
-	   for(BookCategoryVO vo:list)
+	   for(BookHouseVO vo:list)
 	   {
 		   //System.out.println(vo.getPoster().substring(0,vo.getPoster().lastIndexOf("?")));
 		   pcs[i]=new PosterCard3(vo);
@@ -60,7 +65,7 @@ public class HomePanel3 extends JPanel implements MouseListener{
 	   }
 	   
    }
-   public void cardInit(ArrayList<BookCategoryVO> list)
+   public void cardInit(ArrayList<BookHouseVO> list)
    {
 	   for(int i=0;i<list.size();i++)
 	   {
@@ -70,61 +75,63 @@ public class HomePanel3 extends JPanel implements MouseListener{
 	   pan.removeAll();// 데이터 제거
 	   pan.validate();// Panel 재배치 
    }
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-//		// TODO Auto-generated method stub
-//		if(e.getSource()==b1)
-//		{
-//			ArrayList<BookCategoryVO> list=
-//					fm.BookCategoryData(1);
-//			cardInit(list);
-//			cardPrint(list);
-//			  
-//		}
-//		else if(e.getSource()==b2)
-//		{
-//			   ArrayList<BookCategoryVO> list=
-//					fm.BookCategoryData(2);
-//			   
-//			   BookCategoryVO fvo=
-//					   new BookCategoryVO();
-//			   //fvo.setPoster("c:\\javaDev\\def.png");
-//			   fvo.setPoster(null);
-//			   fvo.setTitle("");
-//			   for(int j=0;j<6;j++)
-//			   {
-//				   list.add(fvo);
-//			   }
-//			cardInit(list);
-//			cardPrint(list);
-//		}
-//		else if(e.getSource()==b3)
-//		{
-//			ArrayList<BookCategoryVO> list=
-//					fm.BookCategoryData(3);
-//			cardInit(list);
-//			cardPrint(list);
-//		}
-//	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==b1)
+		{
+			ArrayList<BookHouseVO> list=
+					fm.BookHouseData(1);
+			cardInit(list);
+			cardPrint(list);
+			  
+		}
+		else if(e.getSource()==b2)
+		{
+			   ArrayList<BookHouseVO> list=
+					fm.BookHouseData(2);
+			   
+			   BookHouseVO fvo=
+					   new BookHouseVO();
+			   //fvo.setPoster("c:\\javaDev\\def.png");
+			   fvo.setPoster(null);
+			   fvo.setName("");
+			   for(int j=0;j<6;j++)
+			   {
+				   list.add(fvo);
+			   }
+			cardInit(list);
+			cardPrint(list);
+		}
+		else if(e.getSource()==b3)
+		{
+			ArrayList<BookHouseVO> list=
+					fm.BookHouseData(3);
+			cardInit(list);
+			cardPrint(list);
+		}
+	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		for(int i=0;i<pcs.length;i++)
 		{
-			if(e.getSource()==pcs[i])
+		if(e.getSource()==pcs[i])
+		{
+			if(e.getClickCount()==2)
 			{
-				if(e.getClickCount()==2)
-				{
-					String title=pcs[i].tLa.getText();
-					BookCategoryVO vo=fm.categoryInfoData(title);
-					cp.fdp.la1.setText(vo.getTitle());
-					cp.fdp.la2.setText(vo.getSubject());
-					ArrayList<BookHouseVO> list=
-							   fm.BookHouseListData(vo.getCno());
-					cp.fdp.BookPrint(list);
-					cp.card.show(cp,"cateBook");
-				}
+				String title=pcs[i].tLa.getText();	
+//				int row=table.getSelectedRow();
+//				String fno=model.getValueAt(row, 0).toString();
+				//System.out.println("선택 번호:"+fno);
+				BookHouseVO vo=fm.houseInfoData(title);
+				cp.fdp.la1.setText(vo.getName());
+				cp.fdp.la2.setText(vo.getAuthor());
+				BookHouseVO list=fm.BookInfoData(vo.getFno());
+				cp.fdp.bookPrint(list);
+				cp.card.show(cp, "fdetail");
 			}
+		}
 		}
 	}
 	@Override

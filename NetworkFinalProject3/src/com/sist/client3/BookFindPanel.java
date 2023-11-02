@@ -9,6 +9,7 @@ import com.sist.common3.ImageChange3;
 import com.sist.manager.*;
 import java.net.*;//URL
 public class BookFindPanel extends JPanel 
+
 implements ActionListener{
      JTextField tf;
      JButton b1,b2;
@@ -23,7 +24,7 @@ implements ActionListener{
     	 b1=new JButton("검색");
     	 b2=new JButton("홈이동");
     	 
-    	 String[] col={"","업체명","음식종류"};
+    	 String[] col={"","도서명","작가명"};
     	 Object[][] row=new Object[0][3];// 가변 
     	 // 익명의 클래스 : 상속없이 오버라이딩 => 내부 클래스 
     	 /*
@@ -84,11 +85,11 @@ implements ActionListener{
     	 b2.addActionListener(this);
     	 tf.addActionListener(this);
      }
-     public void findPrint(String title)
+     public void findPrint(String name)
      {
     	 try
     	 {
-    		 ArrayList<BookHouseVO> list=fm.BookFindData(title);
+    		 ArrayList<BookHouseVO> list=fm.BookFindData(name);
     		 for(int i=model.getRowCount()-1;i>=0;i--)
     		 {
     			 model.removeRow(i);
@@ -100,7 +101,7 @@ implements ActionListener{
     			 Image image=ImageChange3.getImage(
     					 new ImageIcon(url), 90, 90);
     			 Object[] obj={
-    				new ImageIcon(image),vo.getName()
+    				new ImageIcon(image),vo.getName(), vo.getAuthor()
     			 };
     			 model.addRow(obj);
     		 }
@@ -111,15 +112,15 @@ implements ActionListener{
 		// TODO Auto-generated method stub
 		if(e.getSource()==b1|| e.getSource()==tf)
 		{
-			String title=tf.getText();
-			if(title.trim().length()<1)
+			String name=tf.getText();
+			if(name.trim().length()<1)
 			{
 				JOptionPane.showMessageDialog(this, "검색어 입력");
 				tf.requestFocus();
 				return;
 			}
 			
-			findPrint(title);
+			findPrint(name);
 		}
 		else if(e.getSource()==b2)
 		{

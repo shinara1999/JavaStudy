@@ -1,13 +1,12 @@
 package com.sist.manager;
 import java.util.*;
 
-import com.sist.vo.BookCategoryVO;
+
 import com.sist.vo.BookHouseVO;
 
 import java.io.*;
 public class BookManager {
-   private static ArrayList<BookCategoryVO>
-        cList=new ArrayList<BookCategoryVO>();
+	
    private static ArrayList<BookHouseVO>
         fList=new ArrayList<BookHouseVO>();
    /*
@@ -32,6 +31,7 @@ public class BookManager {
     */
    // 초기화 블록 => static 변수가 있는 경우에 주로 사용 
    // 자동 수행이 된다 , 상속은 안된다 
+   
    static
    {
 //	   FileReader fr=null;
@@ -54,17 +54,19 @@ public class BookManager {
 //		   {
 //			   StringTokenizer st=new StringTokenizer(s,"|");
 //			   
-//			   BookCategoryVO vo=new BookCategoryVO();
-//			   vo.setCno(Integer.parseInt(st.nextToken().replace("\ufeff", "")));
-//			   vo.setTitle(st.nextToken());
-//			   vo.setSubject(st.nextToken());
+//			   BookHouseVO vo=new BookHouseVO();
+//			   vo.setFno(Integer.parseInt(st.nextToken().replace("\ufeff", "")));
+//			   vo.setName(st.nextToken());
+//			   vo.setAuthor(st.nextToken());
 //			   vo.setPoster(st.nextToken());
-//			   cList.add(vo);
+//			   vo.setPubl(st.nextToken());
+//			   vo.setScore(Double.parseDouble(st.nextToken()));
+//			   fList.add(vo);
 //		   }
 //		   
 //		   fis=new FileOutputStream("c:\\java_data\\bc.txt");
 //		   ois=new ObjectOutputStream(fis);
-//		   ois.writeObject(cList);
+//		   ois.writeObject(fList);
 //		   
 //	   }catch(Exception ex)
 //	   {
@@ -80,13 +82,14 @@ public class BookManager {
 //			   ois.close();
 //		   }catch(Exception ex) {}
 //	   }
+	   
 	   FileInputStream fis=null;
 	   ObjectInputStream ois=null;
 	   try
 	   {
 		   fis=new FileInputStream("c:\\java_data\\bc.txt");
 		   ois=new ObjectInputStream(fis);
-		   cList=(ArrayList<BookCategoryVO>)ois.readObject();
+		   fList=(ArrayList<BookHouseVO>)ois.readObject();
 	   }catch(Exception ex)
 	   {
 		   ex.printStackTrace();
@@ -117,85 +120,7 @@ public class BookManager {
 	    *  |https://mp-seoul-image-production-s3.mangoplate.com/52481_1621066187997112.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80^https://mp-seoul-image-production-s3.mangoplate.com/673960_1689725902210805.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80^https://mp-seoul-image-production-s3.mangoplate.com/673960_1689725904425496.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80^https://mp-seoul-image-production-s3.mangoplate.com/24979_1686491189261172.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80^https://mp-seoul-image-production-s3.mangoplate.com/24979_1686491193055171.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80
 
 	    */
-	   FileReader fr=null;
-	   //BufferedReader br=null;
-//	   FileInputStream fis=null;
-//	   ObjectInputStream ois=null;
-	   StringBuffer sb=new StringBuffer();
-	   String data="";
-	   try
-	   {
-		   
-		   fr=new FileReader("c:\\java_data\\book.txt");
-		   int i=0;
-		   while((i=fr.read())!=-1)
-		   {
-			   sb.append((char)i);
-		   }
-		   String[] fd=sb.toString().split("\n");
-		   System.out.println(fd.length);
-		   for(String s:fd)
-		   {
-			  try
-			  {
-			   s=s.substring(0,s.indexOf("?"));
-			   StringTokenizer st=
-					   new StringTokenizer(s,"|");
-			   
-			   BookHouseVO vo=new BookHouseVO();
-			   vo.setFno(Integer.parseInt(st.nextToken().replace("\ufeff", "")));
-			   vo.setName(st.nextToken());
-			   vo.setAuthor(st.nextToken());
-			   vo.setPoster(st.nextToken());
-			   vo.setPubl(st.nextToken());
-			   vo.setScore(Double.parseDouble(st.nextToken()));
-			   
-			   fList.add(vo);
-			  }catch(Exception ex) {}
-		   }
-		   
-		   
-		   //System.out.println(sb.toString());
-		   FileOutputStream fos=
-				   new FileOutputStream("c:\\java_data\\fh.txt");
-		   ObjectOutputStream oos=new ObjectOutputStream(fos);
-		   oos.writeObject(fList);
-		   fos.close();
-		   oos.close();
-		   System.out.println("저장완료!!");
-		   
-	   }catch(Exception ex)
-	   {
-		   ex.printStackTrace();//  에러 확인 / 복구 
-	   }
-	   finally
-	   {
-		  try
-		  {
-			   fis.close();
-			   fr.close();
-		  }catch(Exception ex) {}
-	   }
-	   //FileInputStream fis=null;
-	   //ObjectInputStream ois=null;
-//	   try
-//	   {
-//		   fis=new FileInputStream("c:\\java_data\\fh.txt");
-//		   ois=new ObjectInputStream(fis);
-//		   fList=(ArrayList<BookHouseVO>)ois.readObject();
-//	   }catch(Exception ex)
-//	   {
-//		   ex.printStackTrace();
-//	   }
-//	   finally
-//	   {
-//		   try
-//		   {
-//			   fis.close();
-//			   ois.close();
-//		   }catch(Exception ex) {}
-//	   }
-//   }
+
    }
    public static void main(String[] args) {
 	   BookManager fm=new BookManager();
@@ -206,18 +131,14 @@ public class BookManager {
 		   System.out.println("제목:"+vo.getName());
 		   System.out.println("작가:"+vo.getAuthor());
 		   System.out.println("출판사:"+vo.getPubl());
-		   System.out.println("점수:"+vo.getScore());
-//		   System.out.println("주소:"+vo.getAddress());
-//		   System.out.println("전화:"+vo.getPhone());
-//		   System.out.println("메뉴:"+vo.getMenu());
-//		   System.out.println("==========================");
+		   System.out.println("평점:"+vo.getScore());
 	   }
 	   
    }
-   public ArrayList<BookCategoryVO> BookCategoryData(int no)
+   public ArrayList<BookHouseVO> BookHouseData(int no)
    {
-	   ArrayList<BookCategoryVO> list=
-			   new ArrayList<BookCategoryVO>();
+	   ArrayList<BookHouseVO> list=
+			   new ArrayList<BookHouseVO>();
 	   int start=0;
 	   int end=0;
 	   if(no==1)
@@ -237,17 +158,17 @@ public class BookManager {
 	   }
 	   for(int i=start;i<=end;i++)
 	   {
-		   list.add(cList.get(i));
+		   list.add(fList.get(i));
 	   }
 	   return list;
    }
    
-   public BookCategoryVO categoryInfoData(String title)
+   public BookHouseVO houseInfoData(String title)
    {
-	   BookCategoryVO vo=new BookCategoryVO();
-	   for(BookCategoryVO fvo:cList)
+	   BookHouseVO vo=new BookHouseVO();
+	   for(BookHouseVO fvo:fList)
 	   {
-		   if(fvo.getTitle().equals(title))
+		   if(fvo.getName().equals(title))
 		   {
 			   vo=fvo;
 			   break;
@@ -255,19 +176,19 @@ public class BookManager {
 	   }
 	   return vo;
    }
-//   public ArrayList<BookHouseVO> BookHouseListData(int cno)
-//   {
-//	   ArrayList<BookHouseVO> list=
-//			   new ArrayList<BookHouseVO>();
-//	   for(BookHouseVO fvo:fList)
-//	   {
-//		   if(fvo.getCno()==cno)
-//		   {
-//			   list.add(fvo);
-//		   }
-//	   }
-//	   return list;
-//   }
+   public ArrayList<BookHouseVO> BookHouseListData(int fno)
+   {
+	   ArrayList<BookHouseVO> list=
+			   new ArrayList<BookHouseVO>();
+	   for(BookHouseVO fvo:fList)
+	   {
+		   if(fvo.getFno()==fno)
+		   {
+			   list.add(fvo);
+		   }
+	   }
+	   return list;
+   }
    public BookHouseVO BookInfoData(int fno)
    {
 	   BookHouseVO vo=new BookHouseVO();
@@ -281,6 +202,7 @@ public class BookManager {
 	   }
 	   return vo;
    }
+   
    public ArrayList<BookHouseVO> BookFindData(String title)
    {
 	   ArrayList<BookHouseVO> list=

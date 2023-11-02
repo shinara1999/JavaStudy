@@ -10,7 +10,7 @@ import com.sist.vo.*;
 public class PosterCard3 extends JPanel{
 	JLabel poLa=new JLabel();
 	JLabel tLa=new JLabel();
-	public PosterCard3(BookCategoryVO vo)
+	public PosterCard3(BookHouseVO vo)
 	{
 		setLayout(null);
 		poLa.setBounds(30, 5, 280, 120);
@@ -33,7 +33,7 @@ public class PosterCard3 extends JPanel{
 				Image image=ImageChange3.getImage(new ImageIcon("c:\\java_data\\noimage.jpg"), 280, 150);
 				poLa.setIcon(new ImageIcon(image));
 			}
-			tLa.setText(vo.getTitle());
+			tLa.setText(vo.getName());
 		}catch(Exception ex) {}
 	}
 }

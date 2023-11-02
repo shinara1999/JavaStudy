@@ -5,7 +5,7 @@ import javax.swing.*;
 // import com.sist.client.Login3;
 import com.sist.common3.ImageChange3;
 import com.sist.manager.BookManager;
-import com.sist.vo.BookCategoryVO;
+import com.sist.vo.BookHouseVO;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -47,7 +47,7 @@ public class ClientMainForm3 extends JFrame implements ActionListener{
 		
 		login.b1.addActionListener(this);
 		
-		ArrayList<BookCategoryVO> list=fm.BookCategoryData(1);
+		ArrayList<BookHouseVO> list=fm.BookHouseData(1);
 		// cp.hp.cardInit(list);
 		cp.hp.cardPrint(list);
 	}
@@ -70,7 +70,7 @@ public class ClientMainForm3 extends JFrame implements ActionListener{
 		}
 		else if(e.getSource()==mp.b2)
 		{
-			cp.card.show(cp, "search");
+			cp.card.show(cp, "find");
 		}
 		else if(e.getSource()==mp.b3)
 		{
