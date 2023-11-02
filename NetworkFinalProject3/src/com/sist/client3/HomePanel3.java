@@ -58,8 +58,8 @@ public class HomePanel3 extends JPanel implements ActionListener, MouseListener{
 	   p1.add(pageLa);
 	   p1.add(b5);
 	   
-	   //p1.setBounds(5, 600, 710, 35);
-	   add("South",p1);
+	   // p1.setBounds(285, 765, 710, 35);
+	   add("South", p1);
 	   
 	   // 이전 다음 이벤트
 	   b4.addActionListener(this); // 이전

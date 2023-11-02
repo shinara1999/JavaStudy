@@ -88,110 +88,105 @@ public class Server3 implements Runnable{
 			}catch(Exception ex) {}
 		}
 		
-		// 요청 시 응답
-		public void run()
-		{
-			try
-			{
-				while(true)
+		// 요청 => 응답 
+				public void run()
 				{
-					String msg=in.readLine();
-					System.out.println("Client=>"+msg);
-					// 로그인 요청 => 100|id|name|sex
-					StringTokenizer st=new StringTokenizer(msg, "|");
-					int protocol=Integer.parseInt(st.nextToken());
-					switch(protocol)
+					try
 					{
-						case Function3.LOGIN: // function 하나하나가 나중에 웹의 JSP가 된다.
+						while(true)
 						{
-							id=st.nextToken();
-							name=st.nextToken();
-							sex=st.nextToken();
-							pos="대기실";
-							
-							// 접속되어있는 사람들에게 전송
-							messageAll(Function3.LOGIN+"|"+id+"|"+name+"|"+sex+"|"+pos);
-							messageAll(Function3.WAITCHAT+"|[알림 ☞]"+name+"님이 입장하셨습니다.");
-							// waitVC => 저장
-							waitVc.add(this);
-							// Login창을 닫고, main을 보여준다.
-							messageTo(Function3.MYLOG+"|"+id);
-							// 접속자 명단을 보낸다.
-							for(Client client:waitVc)
+							String msg=in.readLine();
+							System.out.println("Client=>"+msg);
+							// 로그인 => 100|id|name|sex
+							StringTokenizer st=
+									new StringTokenizer(msg,"|");
+							int protocol=Integer.parseInt(st.nextToken());
+							switch(protocol)
 							{
-								messageTo(Function3.LOGIN+"|"+client.id+"|"+client.name+"|"+client.sex+"|"+client.pos);
-							}
-							// 개설된 방을 전송 (이건 안함)
-						}
-						break;
-						case Function3.WAITCHAT:
-						{
-							String data=st.nextToken();
-							messageAll(Function3.WAITCHAT+"|["+name+"]"+data);
-						}
-						break;
-						case Function3.EXIT:
-						{
-							messageAll(Function3.WAITCHAT+"|[알림 ☞]"+name+"님이 퇴장하셨습니다.");
-							messageAll(Function3.EXIT+"|"+id);
-							// id를 테이블에서 제거
-							for(int i=0;i<waitVc.size();i++)
-							{
-								Client client=waitVc.get(i);
-								if(client.id.equals(id))
+							  case Function3.LOGIN:
+							  {
+								id=st.nextToken();
+								name=st.nextToken();
+								sex=st.nextToken();
+								pos="대기실";
+								
+								// 접속되어 있는 사람들에게 전송 
+								messageAll(Function3.LOGIN+"|"+id+"|"
+										+name+"|"+sex+"|"+pos);
+								messageAll(Function3.WAITCHAT+"|[알림 ☞] "+
+										name+"님 입장하셨습니다|red");
+								// waitVc => 저장 
+								waitVc.add(this);
+								// Login창을 닫고 , main을 보여준다 
+								messageTo(Function3.MYLOG+"|"+id);
+								// 접속자 명단을 보낸다 
+								for(Client client:waitVc)
 								{
-									messageTo(Function3.MYEXIT+"|"); // 윈도우를 종료한다는 뜻
-									waitVc.remove(i);
-									try
-									{
-										// 송수신 종료
-										in.close();
-										out.close();
-									}catch(Exception ex) {}
-									break;
-									
+									messageTo(Function3.LOGIN+"|"
+											+client.id+"|"
+											+client.name+"|"
+											+client.sex+"|"
+											+client.pos);
 								}
+								// 개설된 방을 전송 ==> (X)
+							  }
+							  break;
+							  case Function3.WAITCHAT:// 웹 => jsp
+							  {
+								  String data=st.nextToken();
+								  String color=st.nextToken();
+								  messageAll(Function3.WAITCHAT+"|["+name+"]"+data+"|"+color);
+							  }
+							  break;
+							  case Function3.EXIT:
+							  {
+								  messageAll(Function3.WAITCHAT+"|[알림 ☞] "+name+"님 퇴장하셨습니다|red");
+								  messageAll(Function3.EXIT+"|"+id);
+								  // id를 테이블에서 제거
+								  for(int i=0;i<waitVc.size();i++)
+								  {
+									  Client client=waitVc.get(i);
+									  if(client.id.equals(id))
+									  {
+										  messageTo(Function3.MYEXIT+"|");
+										  waitVc.remove(i);
+										  try
+										  {
+											  //  송수신 종료
+											  in.close();
+											  out.close();
+										  }catch(Exception ex) {}
+										  break;
+									  }
+								  }
+							  }
+							  break;
 							}
+							
 						}
-						break;
-					}
+					}catch(Exception ex) {}
 				}
-			}catch(Exception ex) {}
-		}
-		
-		// 처리방식 => 2개
-		// 1. 접속자 전체로 전송 => 로그인 (먼저 로그인한 사람) / 나가기 / 채팅
-		public synchronized void messageAll(String msg)
-		{
-			// synchronized => 동기방식 (쓰레드) => 메세지가 전송되면 다음 것을 전송할 수 있다. => 하나 끝나면 다음거... 동시 전송 아님
-			try
-			{
-				for(Client client:waitVc)
+				// 처리 방식 => 2개 
+				// 1. 접속자 전체로 전송 => 로그인(먼저 로그인 사람) / 나가기(남아 있는 사람) / 채팅 
+				public synchronized void messageAll(String msg)
 				{
-					client.messageTo(msg);
+					// synchronized => 동기방식 (쓰레드)
+					try
+					{
+						for(Client client:waitVc)
+						{
+							client.messageTo(msg);
+						}
+					}catch(Exception ex) {}
 				}
-			}catch(Exception ex) {}
+				// 2. 로그인 , 나가기 
+				public synchronized void messageTo(String msg)
+				{
+					try
+					{
+						out.write((msg+"\n").getBytes());
+					}catch(Exception ex) {}
+				}
+				
+			}
 		}
-		
-		// 2. 로그인 , 나가기
-		public synchronized void messageTo(String msg)
-		{
-			try
-			{
-				out.write((msg+"\n").getBytes());
-			}catch(Exception ex) {}
-		}
-	}
-
-}
-
-
-
-
-
-
-
-
-
-
-

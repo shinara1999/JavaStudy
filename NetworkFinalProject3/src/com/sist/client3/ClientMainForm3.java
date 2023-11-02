@@ -3,7 +3,7 @@ package com.sist.client3;
 import javax.swing.*;
 
 import com.sist.common3.Function3;
-// import com.sist.client.Login3;
+import com.sist.client3.Login3;
 import com.sist.common3.ImageChange3;
 import com.sist.manager.BookManager;
 import com.sist.vo.BookHouseVO;
@@ -11,22 +11,26 @@ import com.sist.vo.BookHouseVO;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 //서버임포트
 import java.util.*;
 import java.io.*;
 import java.net.*;
 
-public class ClientMainForm3 extends JFrame implements ActionListener, Runnable{
+public class ClientMainForm3 extends JFrame implements ActionListener, Runnable, MouseListener{
 	MenuPanel3 mp=new MenuPanel3();
 	ControllPanel3 cp=new ControllPanel3();
 	JLabel logo=new JLabel();
 	Login3 login=new Login3();
 	BookManager fm=new BookManager();
+	int selectIndex=-1;
 	
 	// 네트워크 관련
     Socket s; // 전화기
     OutputStream out; // 송신
     BufferedReader in; // 수신
+    String myId="";
 	
 	public ClientMainForm3()
 	{
@@ -45,6 +49,7 @@ public class ClientMainForm3 extends JFrame implements ActionListener, Runnable{
 		setSize(1280, 800);
 		//setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(false);
 		
 		// 등록
 		mp.b1.addActionListener(this);
@@ -63,6 +68,9 @@ public class ClientMainForm3 extends JFrame implements ActionListener, Runnable{
 		// 채팅 등록
     	cp.cp.tf.addActionListener(this);
     	cp.cp.b6.addActionListener(this); // 프로그램 종료
+    	
+    	cp.cp.b4.addActionListener(this);
+    	cp.cp.table2.addMouseListener(this);
     	
     	setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     	
@@ -114,12 +122,14 @@ public class ClientMainForm3 extends JFrame implements ActionListener, Runnable{
 						if(id.trim().length()<1)
 						{
 							login.tf1.requestFocus();
+							return;
 						}
 						
 						String name=login.tf2.getText();
 						if(name.trim().length()<1)
 						{
 							login.tf2.requestFocus();
+							return;
 						}
 						
 						String sex="";
@@ -140,11 +150,12 @@ public class ClientMainForm3 extends JFrame implements ActionListener, Runnable{
 			String msg=cp.cp.tf.getText();
 			if(msg.trim().length()<1)
 				return;
+			String color=cp.cp.box.getSelectedItem().toString();
 			
 			// 채팅 메세지 전송
 			try
 			{
-				out.write((Function3.WAITCHAT+"|"+msg+"\n").getBytes());
+				out.write((Function3.WAITCHAT+"|"+msg+"|"+color+"\n").getBytes());
 			}catch(Exception ex) {}
 			cp.cp.tf.setText("");
 		}
@@ -154,6 +165,24 @@ public class ClientMainForm3 extends JFrame implements ActionListener, Runnable{
 			{
 				out.write((Function3.EXIT+"|\n").getBytes());
 			}catch(Exception ex) {}
+		}
+		else if(e.getSource()==cp.cp.b4)
+		{
+			if(selectIndex==-1)
+			{
+				JOptionPane.showMessageDialog(this, "정보를 볼 대상을 선택하세요.");
+				return;
+			}
+			String id=cp.cp.model2.getValueAt(selectIndex, 0).toString();
+			String name=cp.cp.model2.getValueAt(selectIndex, 1).toString();
+			String sex=cp.cp.model2.getValueAt(selectIndex, 2).toString();
+			String pos=cp.cp.model2.getValueAt(selectIndex, 3).toString();
+			String msg="ID:"+id+"\n"
+					  +"이름:"+name+"\n"
+					  +"성별:"+sex+"\n"
+					  +"현위치:"+pos;
+			JOptionPane.showMessageDialog(this, msg);
+			selectIndex=-1;
 		}
 	}
 	
@@ -199,14 +228,17 @@ public class ClientMainForm3 extends JFrame implements ActionListener, Runnable{
 				break;
 				case Function3.MYLOG:
 				{
+					 myId=st.nextToken();
 					login.setVisible(false);
 					setVisible(true);
+					 setTitle(myId);
 				}
 				break;
 				case Function3.WAITCHAT:
 				{
-					cp.cp.bar.setValue(cp.cp.bar.getMaximum());
-					cp.cp.pane.append(st.nextToken()+"\n");
+					cp.cp.initStyle();
+					  cp.cp.bar.setValue(cp.cp.bar.getMaximum());
+					  cp.cp.append(st.nextToken(), st.nextToken());
 				}
 				break;
 				case Function3.MYEXIT:
@@ -230,6 +262,34 @@ public class ClientMainForm3 extends JFrame implements ActionListener, Runnable{
 				}
 			}
 		}catch(Exception ex) {}
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==cp.cp.table2)
+		{
+			selectIndex=cp.cp.table2.getSelectedRow();
+		}
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 	
 
