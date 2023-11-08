@@ -40,7 +40,7 @@ public class BookDetailDataPanel extends JPanel implements ActionListener{
 		posterLa.setBounds(60, 15, 400, 500);
 		add(posterLa);
 		
-		nameLa.setBounds(390, 60, 300, 35);
+		nameLa.setBounds(390, 60, 600, 35);
 		nameLa.setFont(new Font("맑은 고딕", Font.BOLD, 30));
 		add(nameLa);
 		
